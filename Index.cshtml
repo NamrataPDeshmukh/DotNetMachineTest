@@ -1,26 +1,33 @@
-﻿@model IEnumerable<DotNetMachineTest.Models.Category>
+﻿@model IEnumerable<DotNetMachineTest.Models.Product>
 
-<h2>Categories</h2>
+<h2>Products</h2>
 <table>
     <thead>
         <tr>
+            <th>ProductId</th>
+            <th>ProductName</th>
             <th>CategoryId</th>
             <th>CategoryName</th>
-            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var category in Model)
+        @foreach (var product in Model)
         {
             <tr>
-                <td>@category.CategoryId</td>
-                <td>@category.CategoryName</td>
-                <td>
-                    <a href="@Url.Action("Edit", "Category", new { id = category.CategoryId })">Edit</a> |
-                    <a href="@Url.Action("Delete", "Category", new { id = category.CategoryId })">Delete</a>
-                </td>
+                <td>@product.ProductId</td>
+                <td>@product.ProductName</td>
+                <td>@product.CategoryId</td>
+                <td>@product.Category.CategoryName</td>
             </tr>
         }
     </tbody>
 </table>
-<a href="@Url.Action("Create", "Category")">Create New Category</a>
+
+<div>
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        <a href="@Url.Action("Index", "Product", new { page = i })">@i</a>
+    }
+</div>
+
+<a href="@Url.Action("Create", "Product")">Create New Product</a>
